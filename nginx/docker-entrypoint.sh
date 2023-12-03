@@ -1,13 +1,5 @@
 #!/bin/bash
 
-export NGINX_PORT="${NGINX_PORT:-8080}"
-
-export FASTAPI_ENDPOINT="${FASTAPI_ENDPOINT:-fastapi}"
-export FASTAPI_PORT="${FASTAPI_PORT:-3000}"
-
-export VUE_ENDPOINT="${VUE_ENDPOINT:-vue}"
-export VUE_PORT="${VUE_PORT:-8080}"
-
 function template_file() {
   FILES=$(find "templates/${1}" -type f -mindepth 1 -maxdepth 1 | grep -E ".*.template$")
   ENVSUBST="${ENVSUBST//\\/}"

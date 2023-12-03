@@ -10,7 +10,7 @@ docker-compose up --build --remove-orphans --force-recreate
 
 ### Docker Compose
 
-Commented Out
+Commented Out `volumes` with source code
 
 ```bash
   vue:

@@ -9,6 +9,10 @@ ARG USER_ID="1000"
 ARG GROUP_NAME="vue"
 ARG GROUP_ID="1000"
 
+ARG VUE_PORT=8080
+
+ENV VUE_PORT="${VUE_PORT}"
+
 ENV PATH="${APP_DIR}/.yarn/bin:${PATH}"
 
 RUN apk add --no-cache bash curl
