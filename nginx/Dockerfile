@@ -1,26 +1,25 @@
 FROM nginx:1.25-alpine3.18-slim
 
-ARG DEV_MODE="compose"
-
 ENV APP_DIR="/app"
 
-ARG USER_NAME="nginx"
-ARG USER_ID="1000"
-ARG GROUP_NAME="nginx"
-ARG GROUP_ID="1000"
+ARG USER_NAME=nginx
+ARG USER_ID=1000
+ARG GROUP_NAME=nginx
+ARG GROUP_ID=1000
 
-ENV PATH=":${PATH}"
+ENV PATH="${PATH}"
 
+ARG DEV_MODE=develop
+ENV DEV_MODE="${DEV_MODE}"
 ARG NGINX_PORT=8080
-ARG FASTAPI_ENDPOINT=fastapi
-ARG FASTAPI_PORT=3000
-ARG VUE_ENDPOINT=vue
-ARG VUE_PORT=8080
-
 ENV NGINX_PORT="${NGINX_PORT}"
+ARG FASTAPI_ENDPOINT=fastapi
 ENV FASTAPI_ENDPOINT="${FASTAPI_ENDPOINT}"
+ARG FASTAPI_PORT=3000
 ENV FASTAPI_PORT="${FASTAPI_PORT}"
+ARG VUE_ENDPOINT=vue
 ENV VUE_ENDPOINT="${VUE_ENDPOINT}"
+ARG VUE_PORT=8080
 ENV VUE_PORT="${VUE_PORT}"
 
 RUN apk add --no-cache bash envsubst curl
@@ -41,8 +40,8 @@ RUN mkdir -p \
 USER "${USER_NAME}"
 WORKDIR "${APP_DIR}"
 
-COPY config/*.template "${APP_DIR}"/templates/etc
-COPY config/conf.d/*.template "${APP_DIR}"/templates/etc/conf.d/
-COPY docker-entrypoint.sh .
+COPY --chown="${USER_ID}":"${GROUP_ID}" ./config/*.template "${APP_DIR}"/templates/etc
+COPY --chown="${USER_ID}":"${GROUP_ID}" ./config/conf.d/*.template "${APP_DIR}"/templates/etc/conf.d/
+COPY --chown="${USER_ID}":"${GROUP_ID}" ./docker-entrypoint.sh "${APP_DIR}"/
 
 ENTRYPOINT ["/bin/bash", "./docker-entrypoint.sh"]

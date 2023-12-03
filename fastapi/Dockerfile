@@ -1,23 +1,22 @@
 FROM python:3.10-alpine3.18
 
-ARG DEV_MODE="compose"
-
 ENV APP_DIR="/app"
 
-ARG USER_NAME="fastapi"
-ARG USER_ID="1000"
-ARG GROUP_NAME="fastapi"
-ARG GROUP_ID="1000"
-
-ARG UVICORN_PORT=3000
-ARG UVICORN_WORKERS=5
-ARG UVICORN_LOG_LEVEL=info
-
-ENV UVICORN_PORT="${UVICORN_PORT}"
-ENV UVICORN_WORKERS="${UVICORN_WORKERS}"
-ENV UVICORN_LOG_LEVEL="${UVICORN_LOG_LEVEL}"
+ARG USER_NAME=fastapi
+ARG USER_ID=1000
+ARG GROUP_NAME=fastapi
+ARG GROUP_ID=1000
 
 ENV PATH="${APP_DIR}/.local/bin:${PATH}"
+
+ARG DEV_MODE=develop
+ENV DEV_MODE="${DEV_MODE}"
+ARG UVICORN_PORT=3000
+ENV UVICORN_PORT="${UVICORN_PORT}"
+ARG UVICORN_WORKERS=5
+ENV UVICORN_WORKERS="${UVICORN_WORKERS}"
+ARG UVICORN_LOG_LEVEL=info
+ENV UVICORN_LOG_LEVEL="${UVICORN_LOG_LEVEL}"
 
 RUN apk add --no-cache bash curl
 
@@ -38,9 +37,10 @@ RUN mkdir -p src && \
 #    pip3 freeze > requirements.txt && \
 #    cat requirements.txt
 
-COPY docker-entrypoint.sh .
-COPY src src/
-COPY requirements.txt .
+COPY --chown="${USER_ID}":"${GROUP_ID}" ./src "${APP_DIR}"/src/
+COPY --chown="${USER_ID}":"${GROUP_ID}" ./requirements.txt "${APP_DIR}"/
+COPY --chown="${USER_ID}":"${GROUP_ID}" ./docker-entrypoint.sh "${APP_DIR}"/
+
 RUN pip install -r ./requirements.txt
 
 ENTRYPOINT ["/bin/bash", "./docker-entrypoint.sh"]

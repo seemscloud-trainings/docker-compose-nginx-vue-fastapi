@@ -6,6 +6,10 @@ services:
     hostname: nginx
     build:
       context: nginx
+      args:
+        #DEV_MODE: compose
+        DEV_MODE: develop
+        #DEV_MODE: prod
     ports:
       - "80:8080"
     environment:
@@ -21,13 +25,17 @@ services:
     build:
       context: vue
       args:
-        DEV_MODE: production
+        #DEV_MODE: compose
+        DEV_MODE: develop
+        #DEV_MODE: prod
     healthcheck:
       test: curl --fail http://localhost:$${VUE_PORT} || exit 1
       start_period: 10s
       interval: 1s
       retries: 3
       timeout: 1s
+    ports:
+      - "8080:8080"
     #volumes:
     #  - ${PWD}/vue/src:/app/src:rw
   fastapi:
@@ -36,7 +44,9 @@ services:
     build:
       context: fastapi
       args:
-        DEV_MODE: production
+        #DEV_MODE: compose
+        DEV_MODE: develop
+        #DEV_MODE: prod
     restart: always
     healthcheck:
       test: curl --fail http://localhost:$${UVICORN_PORT}/healthz || exit 1
@@ -44,5 +54,7 @@ services:
       interval: 1s
       retries: 2
       timeout: 1s
+    ports:
+      - "3000:3000"
     #volumes:
     #  - ${PWD}/fastapi/src/:/app/src
