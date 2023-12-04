@@ -8,7 +8,7 @@ docker-compose up --build --remove-orphans --force-recreate
 
 ## Modes
 
-### DEV_MODE: `compose`
+### Docker Compose Mode (`compose`)
 
 - auto reload `vue` / `fastapi` source code on live
 - fast development when working in e.g.: `PyCharm` / `WebStorem`
@@ -38,13 +38,11 @@ Commented Out `volumes` with source code
 
 #### Set Environment Variable
 
-For `vue` / `fastapi` change `DEV_MODE` from `development` to `compose`
-
 ```bash
 DEV_MODE=compose
 ```
 
-### DEV_MODE: `develop`
+### Development Mode (`develop`)
 
 #### Set Environment Variable
 
@@ -54,7 +52,7 @@ For `vue` / `fastapi` change `DEV_MODE` to `develop`
 DEV_MODE=develop
 ```
 
-### DEV_MODE: `prod`
+### Production Mode (`prod`)
 
 #### Set Environment Variable
 
