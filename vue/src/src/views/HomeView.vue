@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld msg="Hello World!"/>
+  <GlobalFooter/>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
+import GlobalFooter from '@/components/GlobalFooter.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld,
+    GlobalFooter,
   },
 };
 </script>
