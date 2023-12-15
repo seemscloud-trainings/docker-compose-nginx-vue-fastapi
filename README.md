@@ -54,10 +54,27 @@ DEV_MODE=develop
 
 ### Production Mode (`prod`)
 
+v v
+
 #### Set Environment Variable
 
 For `vue` / `fastapi` change `DEV_MODE` to `prod`
 
 ```bash
 DEV_MODE=prod
+```
+
+## Redis
+
+```bash
+CONFIG GET databases
+
+INFO keyspace
+
+SELECT 1
+
+SET key01 value01
+
+KEYS *
+
 ```
