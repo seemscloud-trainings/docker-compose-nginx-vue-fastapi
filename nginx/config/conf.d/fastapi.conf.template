@@ -2,7 +2,7 @@ server {
     listen              ${NGINX_PORT};
     server_name         localhost;
 
-    location ~* /api/v[1-9]/.*$ {
+    location ~* /api/.*$ {
         proxy_pass      http://${FASTAPI_ENDPOINT}:${FASTAPI_PORT};
     }
 
